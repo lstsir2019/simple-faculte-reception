@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.bean;
+package com.faculte.simplefacultereception.domain.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -35,6 +35,7 @@ public class Reception implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateReception;
     private double total;
+    private int indexRef;
     @OneToMany(mappedBy = "reception")
     private List<ReceptionItem> receptionItems = new ArrayList<>();
 

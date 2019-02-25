@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.rest.vo;
+package com.faculte.simplefacultereception.domain.rest.vo;
 
 /**
  *
@@ -15,6 +15,7 @@ public class ReceptionItemVo {
     private String referenceProduit;
     private String referenceMagasin;
     private String qte;
+    private ReceptionVo receptionVo; 
 
     public String getReferenceCategorie() {
         return referenceCategorie;

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.rest.converter;
+package com.faculte.simplefacultereception.domain.rest.converter;
 
-import com.faculte.simplefacultereception.bean.ReceptionItem;
+import com.faculte.simplefacultereception.domain.bean.ReceptionItem;
 import com.faculte.simplefacultereception.commun.util.ConverterUtil;
-import com.faculte.simplefacultereception.rest.vo.ReceptionItemVo;
+import com.faculte.simplefacultereception.domain.rest.vo.ReceptionItemVo;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @author Anas
  */
 @Component
-public class ReceptionItemConverter implements AbstractConverter<ReceptionItem, ReceptionItemVo> {
+public class ReceptionItemConverter extends AbstractConverter<ReceptionItem, ReceptionItemVo> {
 
     public ReceptionItemConverter() {
     }

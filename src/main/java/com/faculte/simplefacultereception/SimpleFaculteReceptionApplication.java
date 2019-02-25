@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients("com.faculte.simplefacultereception.rest")
+@EnableFeignClients("com.faculte.simplefacultereception.domain.rest")
 public class SimpleFaculteReceptionApplication {
 
 	public static void main(String[] args) {

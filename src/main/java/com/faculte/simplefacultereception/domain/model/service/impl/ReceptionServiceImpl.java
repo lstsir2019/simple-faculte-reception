@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.service.impl;
+package com.faculte.simplefacultereception.domain.model.service.impl;
 
-import com.faculte.simplefacultereception.bean.Reception;
-import com.faculte.simplefacultereception.dao.ReceptionDao;
-import com.faculte.simplefacultereception.service.ReceptionItemService;
-import com.faculte.simplefacultereception.service.ReceptionService;
+import com.faculte.simplefacultereception.domain.bean.Reception;
+import com.faculte.simplefacultereception.domain.model.dao.ReceptionDao;
+import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
+import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
+import com.faculte.simplefacultereception.domain.rest.proxy.MagasinProxy;
+import com.faculte.simplefacultereception.domain.rest.proxy.StockProxy;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,10 @@ public class ReceptionServiceImpl implements ReceptionService {
     private ReceptionDao receptionDao;
     @Autowired
     private ReceptionItemService receptionItemService;
+    @Autowired
+    private StockProxy stockProxy;
+    @Autowired
+    private MagasinProxy magasinProxy;
 
     @Override
     public int createReception(Reception reception) {
@@ -39,7 +45,7 @@ public class ReceptionServiceImpl implements ReceptionService {
                 return -4;
             } else {
                 receptionDao.save(reception);
-                int i = receptionItemService.createReceptionItems(reception, reception.getReceptionItems());
+                int i = receptionItemService.saveReceptionItems(reception, reception.getReceptionItems());
                 if (i < 0) {
                     return -5;
                 } else {
@@ -57,11 +63,6 @@ public class ReceptionServiceImpl implements ReceptionService {
     @Override
     public List<Reception> findByCommandeReference(String reference) {
         return receptionDao.findByReferenceCommande(reference);
-    }
-
-    @Override
-    public void calculerTotal(Reception reception) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -83,6 +84,14 @@ public class ReceptionServiceImpl implements ReceptionService {
 
     public void setReceptionItemService(ReceptionItemService receptionItemService) {
         this.receptionItemService = receptionItemService;
+    }
+
+    public StockProxy getStockProxy() {
+        return stockProxy;
+    }
+
+    public void setStockProxy(StockProxy stockProxy) {
+        this.stockProxy = stockProxy;
     }
 
 }

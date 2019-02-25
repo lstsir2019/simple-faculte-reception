@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.rest.vo;
+package com.faculte.simplefacultereception.domain.rest.vo;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.ArrayList;

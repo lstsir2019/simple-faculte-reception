@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.service;
+package com.faculte.simplefacultereception.domain.model.service;
 
-import com.faculte.simplefacultereception.bean.Reception;
+import com.faculte.simplefacultereception.domain.bean.Reception;
 import java.util.List;
 
 /**
@@ -18,9 +18,8 @@ public interface ReceptionService {
 
     public List<Reception> findAll();
 
-    public void calculerTotal(Reception reception);
-
     public Reception findByReference(String reference);
 
     public List<Reception> findByCommandeReference(String reference);
+
 }

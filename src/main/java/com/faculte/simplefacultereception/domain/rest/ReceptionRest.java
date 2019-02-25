@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.rest;
+package com.faculte.simplefacultereception.domain.rest;
 
-import com.faculte.simplefacultereception.rest.converter.ReceptionConverter;
-import com.faculte.simplefacultereception.rest.converter.ReceptionItemConverter;
-import com.faculte.simplefacultereception.rest.proxy.ProduitProxy;
-import com.faculte.simplefacultereception.rest.vo.ReceptionItemVo;
-import com.faculte.simplefacultereception.rest.vo.ReceptionVo;
-import com.faculte.simplefacultereception.rest.vo.exchange.ProduitVo;
-import com.faculte.simplefacultereception.service.ReceptionItemService;
-import com.faculte.simplefacultereception.service.ReceptionService;
+import com.faculte.simplefacultereception.domain.rest.converter.ReceptionConverter;
+import com.faculte.simplefacultereception.domain.rest.converter.ReceptionItemConverter;
+import com.faculte.simplefacultereception.domain.rest.vo.ReceptionItemVo;
+import com.faculte.simplefacultereception.domain.rest.vo.ReceptionVo;
+import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
+import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,8 +39,6 @@ public class ReceptionRest {
     private ReceptionConverter receptionConverter;
     @Autowired
     private ReceptionItemConverter receptionItemConverter;
-    @Autowired
-    private ProduitProxy produitProxy ;
 
     @PostMapping("/")
     public int createReception(@RequestBody ReceptionVo receptionVo) {
@@ -57,14 +53,6 @@ public class ReceptionRest {
     @GetMapping("/reference/{reference}/receptionitems")
     public List<ReceptionItemVo> findByReceptionreference(@PathVariable("reference") String reference) {
         return receptionItemConverter.toVo(receptionItemService.findByReceptionReference(reference));
-    }
-
-    @GetMapping("/test/{reference}")
-    public int findByReference(@PathVariable String reference) {
-        for (int i = 0; i < 9999; i++) {
-            produitProxy.findByReference(reference);
-        }
-        return 1;
     }
 
     @GetMapping("/reference/{reference}")
@@ -104,12 +92,5 @@ public class ReceptionRest {
         this.receptionItemConverter = receptionItemConverter;
     }
 
-    public ProduitProxy getProduitProxy() {
-        return produitProxy;
-    }
-
-    public void setProduitProxy(ProduitProxy produitProxy) {
-        this.produitProxy = produitProxy;
-    }
 
 }

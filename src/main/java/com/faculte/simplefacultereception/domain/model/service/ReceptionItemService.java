@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.faculte.simplefacultereception.service;
+package com.faculte.simplefacultereception.domain.model.service;
 
-import com.faculte.simplefacultereception.bean.Reception;
-import com.faculte.simplefacultereception.bean.ReceptionItem;
+import com.faculte.simplefacultereception.domain.bean.Reception;
+import com.faculte.simplefacultereception.domain.bean.ReceptionItem;
 import java.util.List;
 
 /**
@@ -15,10 +15,10 @@ import java.util.List;
  */
 public interface ReceptionItemService {
 
-    public int createReceptionItem(ReceptionItem receptionItem);
+    public int saveReceptionItem(ReceptionItem receptionItem);
 
     public List<ReceptionItem> findByReceptionReference(String reference);
 
-    public int createReceptionItems(Reception reception, List<ReceptionItem> receptionItems);
+    public int saveReceptionItems(Reception reception, List<ReceptionItem> receptionItems);
 
 }
