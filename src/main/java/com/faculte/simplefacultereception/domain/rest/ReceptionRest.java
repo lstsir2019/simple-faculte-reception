@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 //@CrossOrigin(origins = "http://127.0.0.1:4200")
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/reception-api/reception")
+@RequestMapping("/reception-api/receptions")
 public class ReceptionRest {
 
     @Autowired

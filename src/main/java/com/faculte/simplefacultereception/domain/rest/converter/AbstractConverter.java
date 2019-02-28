@@ -11,35 +11,34 @@ import java.util.List;
 /**
  *
  * @author Anas
+ * @param <T>
+ * @param <Vo>
  */
-public abstract class AbstractConverter<T, VO> {
+public abstract class AbstractConverter<T, Vo> {
 
-    public abstract T toItem(VO vo);
+    public abstract T toItem(Vo vo);
 
-    public abstract VO toVo(T item);
+    public abstract Vo toVo(T item);
 
-    public List<T> toItem(List<VO> vos) {
+    public List<T> toItem(List<Vo> vos) {
         if (vos == null || vos.isEmpty()) {
-            return null;
+            return new ArrayList<>();
         } else {
             List<T> items = new ArrayList();
-            for (VO vo : vos) {
-                items.add(toItem(vo));
-            }
+            vos.forEach(vo
+                    -> items.add(toItem(vo)));
             return items;
         }
     }
 
-    public List<VO> toVo(List<T> items) {
+    public List<Vo> toVo(List<T> items) {
         if (items == null || items.isEmpty()) {
-            return null;
+            return new ArrayList<>();
         } else {
-            List<VO> vos = new ArrayList();
-            for (T item : items) {
-                vos.add(toVo(item));
-            }
+            List<Vo> vos = new ArrayList();
+            items.forEach(item
+                    -> vos.add(toVo(item)));
             return vos;
         }
     }
 }
-

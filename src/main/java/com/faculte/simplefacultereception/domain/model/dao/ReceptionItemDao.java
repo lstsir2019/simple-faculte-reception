@@ -5,7 +5,6 @@
  */
 package com.faculte.simplefacultereception.domain.model.dao;
 
-import com.faculte.simplefacultereception.domain.bean.Reception;
 import com.faculte.simplefacultereception.domain.bean.ReceptionItem;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

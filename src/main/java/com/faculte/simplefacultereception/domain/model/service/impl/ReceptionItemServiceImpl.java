@@ -53,10 +53,8 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
         List<StockVo> stockVos = receptionItemsToStocks(receptionItems);
         int res = 0;
         if (stockVos != null && !stockVos.isEmpty()) {
-            System.out.println("Hello All Stocks has been Saved ");
             res = stockProxy.create(stockVos);
         }
-        System.out.println("res from create"+res);
         return res == 1;
     }
 
@@ -70,7 +68,7 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
             stockVo.setMagasinVo(new MagasinVo(receptionItem.getReferenceMagasin()));
             return stockVo;
         } else {
-            return null;
+            return new StockVo();
         }
     }
 
@@ -82,7 +80,7 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
             }
             return stockVos;
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

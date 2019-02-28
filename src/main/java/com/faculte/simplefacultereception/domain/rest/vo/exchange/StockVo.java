@@ -22,6 +22,16 @@ public class StockVo {
     public StockVo() {
     }
 
+    public StockVo(String reference, String referenceReception, String referenceProduit, int qte, int qteDeffectueuse, int seuilAlert, MagasinVo magasinVo) {
+        this.reference = reference;
+        this.referenceReception = referenceReception;
+        this.referenceProduit = referenceProduit;
+        this.qte = qte;
+        this.qteDeffectueuse = qteDeffectueuse;
+        this.seuilAlert = seuilAlert;
+        this.magasinVo = magasinVo;
+    }
+    
     public String getReference() {
         return reference;
     }

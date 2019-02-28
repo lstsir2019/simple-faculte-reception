@@ -5,16 +5,18 @@
  */
 package com.faculte.simplefacultereception.commun.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.math.BigDecimal;
 
 /**
  *
  * @author Anas
  */
-public class ConverterUtil {
+public class NumberUtil {
 
-    private static final Double ZERO_DOUBLE = 0D;
+    private NumberUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+    private static final String CHAINE_VIDE = "";
 
     public static Double toDouble(String value) {
         if (value == null || value.isEmpty()) {
@@ -32,15 +34,19 @@ public class ConverterUtil {
         }
     }
 
-    //convert Data to String
-    public static String formateDate(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(date);
+    public static BigDecimal toBigDecimal(String value) {
+        if (value == null || value.isEmpty()) {
+            return BigDecimal.ZERO;
+        } else {
+            return new BigDecimal(value);
+        }
     }
 
-    //convert String to data
-    public static java.util.Date parseDate(String date) throws java.text.ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return (simpleDateFormat.parse(date));
+    public static String toString(BigDecimal value) {
+        if (value == null) {
+            return CHAINE_VIDE;
+        } else {
+            return String.valueOf(value);
+        }
     }
 }

@@ -35,7 +35,6 @@ public class Reception implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateReception;
     private double total;
-    private int indexRef;
     @OneToMany(mappedBy = "reception")
     private List<ReceptionItem> receptionItems = new ArrayList<>();
 
@@ -109,15 +108,12 @@ public class Reception implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // this method won't work in the case the id fields are not set
         if (!(object instanceof Reception)) {
             return false;
         }
         Reception other = (Reception) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override

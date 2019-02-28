@@ -6,12 +6,9 @@
 package com.faculte.simplefacultereception.domain.rest.converter;
 
 import com.faculte.simplefacultereception.domain.bean.Reception;
-import com.faculte.simplefacultereception.commun.util.ConverterUtil;
+import com.faculte.simplefacultereception.commun.util.DateUtil;
 import com.faculte.simplefacultereception.domain.rest.vo.ReceptionVo;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
@@ -28,12 +25,8 @@ public class ReceptionConverter extends AbstractConverter<Reception, ReceptionVo
             reception.setReference(receptionVo.getReference());
             reception.setReferenceCommande(receptionVo.getReferenceCommande());
             reception.setReceptionItems(new ReceptionItemConverter().toItem(receptionVo.getReceptionItems()));
-            try {
-                Date receptionDate = ConverterUtil.parseDate(receptionVo.getDateReception());
-                reception.setDateReception(receptionDate);
-            } catch (ParseException e) {
-                reception.setDateReception(null);
-            }
+            Date receptionDate = DateUtil.parseDate(receptionVo.getDateReception());
+            reception.setDateReception(receptionDate);
             return reception;
         }
         return null;
@@ -47,19 +40,10 @@ public class ReceptionConverter extends AbstractConverter<Reception, ReceptionVo
             ReceptionVo receptionVo = new ReceptionVo();
             receptionVo.setReference(item.getReference());
             receptionVo.setReferenceCommande(item.getReferenceCommande());
-            receptionVo.setDateReception(ConverterUtil.formateDate(item.getDateReception()));
+            receptionVo.setDateReception(DateUtil.formateDate(item.getDateReception()));
             receptionVo.setReceptionItems(new ReceptionItemConverter().toVo(item.getReceptionItems()));
             return receptionVo;
         }
     }
 
-    public List<ReceptionVo> toVo(List<Reception> receptions) {
-        List<ReceptionVo> receptionVos = new ArrayList<>();
-        if (receptions != null) {
-            receptions.forEach((reception) -> {
-                receptionVos.add(toVo(reception));
-            });
-        }
-        return receptionVos;
-    }
 }
