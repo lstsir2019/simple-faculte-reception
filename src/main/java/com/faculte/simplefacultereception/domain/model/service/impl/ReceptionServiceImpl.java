@@ -9,8 +9,7 @@ import com.faculte.simplefacultereception.domain.bean.Reception;
 import com.faculte.simplefacultereception.domain.model.dao.ReceptionDao;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
-import com.faculte.simplefacultereception.domain.rest.proxy.MagasinProxy;
-import com.faculte.simplefacultereception.domain.rest.proxy.StockProxy;
+import com.faculte.simplefacultereception.domain.rest.vo.converter.ReceptionStock;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +26,34 @@ public class ReceptionServiceImpl implements ReceptionService {
     @Autowired
     private ReceptionItemService receptionItemService;
     @Autowired
-    private StockProxy stockProxy;
-    @Autowired
-    private MagasinProxy magasinProxy;
+    private ReceptionStock receptionStock;
 
     @Override
     public int createReception(Reception reception) {
+        /*  1) On sauvegarder Reception dans la base de donnees
+        *   2) On sauvegarder Les ReceptionItems
+        *   3) on sauvegarder Stock se chaque reception Item    
+        *   Si methode return res < 0 Alors reception ne peut pas etre sauvegardé
+         */
+        int res = saveReception(reception);
+        if (res < 0) {
+            return res;
+        }
+        //  Methode qui permet de enregistre les ReceptionItems
+        int i = receptionItemService.saveReceptionItems(reception, reception.getReceptionItems());
+        if (i < 0) {
+            return -5;
+        }
+        // On sauvegarde le Stock ReceptionItem == Stock
+        Boolean resStock = receptionStock.saveStock(reception.getReceptionItems());
+        if (!resStock) {
+            return -6;
+        }
+        return 1;
+    }
+
+    private int saveReception(Reception reception) {
+        //cette méthode permet de sauvegarder reception seul dans la base de donnes
         if (reception == null) {
             return -1;
         } else {
@@ -44,13 +65,9 @@ public class ReceptionServiceImpl implements ReceptionService {
             } else if (reception.getDateReception() == null) {
                 return -4;
             } else {
+                //sauvegarde Reception seul !!!
                 receptionDao.save(reception);
-                int i = receptionItemService.saveReceptionItems(reception, reception.getReceptionItems());
-                if (i < 0) {
-                    return -5;
-                } else {
-                    return 1;
-                }
+                return 1;
             }
         }
     }
@@ -86,12 +103,12 @@ public class ReceptionServiceImpl implements ReceptionService {
         this.receptionItemService = receptionItemService;
     }
 
-    public StockProxy getStockProxy() {
-        return stockProxy;
+    public ReceptionStock getReceptionStock() {
+        return receptionStock;
     }
 
-    public void setStockProxy(StockProxy stockProxy) {
-        this.stockProxy = stockProxy;
+    public void setReceptionStock(ReceptionStock receptionStock) {
+        this.receptionStock = receptionStock;
     }
 
 }

@@ -26,8 +26,6 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
 
     @Autowired
     private ReceptionItemDao receptionItemDao;
-    @Autowired
-    private StockProxy stockProxy;
 
     @Override
     public int saveReceptionItems(Reception reception, List<ReceptionItem> receptionItems) {
@@ -39,48 +37,9 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
             for (ReceptionItem receptionItem : receptionItems) {
                 receptionItem.setReception(reception);
             }
-            if (!valideStock(receptionItems)) {
-                return -3;
-            } else {
-                receptionItemDao.saveAll(receptionItems);
-                return 1;
-            }
+            receptionItemDao.saveAll(receptionItems);
+            return 1;
         }
-    }
-
-    //valide si Stock est enregistre sans problem 
-    private Boolean valideStock(List<ReceptionItem> receptionItems) {
-        List<StockVo> stockVos = receptionItemsToStocks(receptionItems);
-        int res = 0;
-        if (stockVos != null && !stockVos.isEmpty()) {
-            res = stockProxy.create(stockVos);
-        }
-        return res == 1;
-    }
-
-    //Methode permet de transforme Objet ReceptionItem to Stock 
-    private StockVo receptionItemToStock(ReceptionItem receptionItem) {
-        if (receptionItem != null) {
-            StockVo stockVo = new StockVo();
-            stockVo.setReferenceProduit(receptionItem.getReferenceProduit());
-            stockVo.setReferenceReception(receptionItem.getReception().getReference());
-            stockVo.setQte(receptionItem.getQte());
-            stockVo.setMagasinVo(new MagasinVo(receptionItem.getReferenceMagasin()));
-            return stockVo;
-        } else {
-            return new StockVo();
-        }
-    }
-
-    private List<StockVo> receptionItemsToStocks(List<ReceptionItem> receptionItems) {
-        List<StockVo> stockVos = new ArrayList<>();
-        if (receptionItems != null && !receptionItems.isEmpty()) {
-            for (ReceptionItem receptionItem : receptionItems) {
-                stockVos.add(receptionItemToStock(receptionItem));
-            }
-            return stockVos;
-        }
-        return new ArrayList<>();
     }
 
     @Override
@@ -100,14 +59,6 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
 
     public void setReceptionItemDao(ReceptionItemDao receptionItemDao) {
         this.receptionItemDao = receptionItemDao;
-    }
-
-    public StockProxy getStockProxy() {
-        return stockProxy;
-    }
-
-    public void setStockProxy(StockProxy stockProxy) {
-        this.stockProxy = stockProxy;
     }
 
 }

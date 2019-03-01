@@ -34,11 +34,7 @@ public class ReceptionRest {
     @Autowired
     private ReceptionService receptionService;
     @Autowired
-    private ReceptionItemService receptionItemService;
-    @Autowired
     private ReceptionConverter receptionConverter;
-    @Autowired
-    private ReceptionItemConverter receptionItemConverter;
 
     @PostMapping("/")
     public int createReception(@RequestBody ReceptionVo receptionVo) {
@@ -48,11 +44,6 @@ public class ReceptionRest {
     @GetMapping("/receptions")
     public List<ReceptionVo> findAll() {
         return receptionConverter.toVo(receptionService.findAll());
-    }
-
-    @GetMapping("/reference/{reference}/receptionitems")
-    public List<ReceptionItemVo> findByReceptionreference(@PathVariable("reference") String reference) {
-        return receptionItemConverter.toVo(receptionItemService.findByReceptionReference(reference));
     }
 
     @GetMapping("/reference/{reference}")
@@ -75,22 +66,5 @@ public class ReceptionRest {
     public void setReceptionConverter(ReceptionConverter receptionConverter) {
         this.receptionConverter = receptionConverter;
     }
-
-    public ReceptionItemService getReceptionItemService() {
-        return receptionItemService;
-    }
-
-    public void setReceptionItemService(ReceptionItemService receptionItemService) {
-        this.receptionItemService = receptionItemService;
-    }
-
-    public ReceptionItemConverter getReceptionItemConverter() {
-        return receptionItemConverter;
-    }
-
-    public void setReceptionItemConverter(ReceptionItemConverter receptionItemConverter) {
-        this.receptionItemConverter = receptionItemConverter;
-    }
-
 
 }
