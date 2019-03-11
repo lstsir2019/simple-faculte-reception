@@ -26,10 +26,17 @@ public class ReceptionStock {
 
     public Boolean saveStock(List<ReceptionItem> receptionItems) {
         //valide si Stock est enregistre sans problem 
-        List<StockVo> stockVos = receptionItemsToStocks(receptionItems);
         int res = 0;
+//        for (ReceptionItem receptionItem : receptionItems) {
+//            StockVo stockVo = receptionItemToStock(receptionItem);
+//        }
+        List<StockVo> stockVos = receptionItemsToStocks(receptionItems);
         if (stockVos != null && !stockVos.isEmpty()) {
             res = stockProxy.create(stockVos);
+            System.out.println("*********************************SaveStock*************************");
+            System.out.println(stockVos);
+            System.out.println("*******************************************************************");
+
         }
         return res == 1;
     }

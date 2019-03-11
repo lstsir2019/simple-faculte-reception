@@ -10,6 +10,8 @@ import com.faculte.simplefacultereception.domain.model.dao.ReceptionDao;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
 import com.faculte.simplefacultereception.domain.rest.vo.converter.ReceptionStock;
+import java.time.Year;
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +32,9 @@ public class ReceptionServiceImpl implements ReceptionService {
 
     @Override
     public int createReception(Reception reception) {
-        /*  1) On sauvegarder Reception dans la base de donnees
+        /*  1) On sauvegarder Reception BD
         *   2) On sauvegarder Les ReceptionItems
-        *   3) on sauvegarder Stock se chaque reception Item    
+        *   3) on sauvegarder Stock  (receptionItem==Stock)    
         *   Si methode return res < 0 Alors reception ne peut pas etre sauvegardé
          */
         int res = saveReception(reception);
@@ -44,12 +46,13 @@ public class ReceptionServiceImpl implements ReceptionService {
         if (i < 0) {
             return -5;
         }
-        // On sauvegarde le Stock ReceptionItem == Stock
+        // On sauvegarde  Stock ReceptionItem == Stock
         Boolean resStock = receptionStock.saveStock(reception.getReceptionItems());
         if (!resStock) {
             return -6;
+        } else {
+            return 1;
         }
-        return 1;
     }
 
     private int saveReception(Reception reception) {
@@ -70,6 +73,14 @@ public class ReceptionServiceImpl implements ReceptionService {
                 return 1;
             }
         }
+    }
+
+    @Override
+    public String generateReceptionReference() {
+        long i = receptionDao.count() + 1;
+        int year = Year.now().getValue();
+        String reference = "rec-" + year + "-" + i;
+        return reference;
     }
 
     @Override

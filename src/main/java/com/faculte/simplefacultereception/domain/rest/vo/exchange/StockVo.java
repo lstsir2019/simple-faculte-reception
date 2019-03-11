@@ -31,7 +31,7 @@ public class StockVo {
         this.seuilAlert = seuilAlert;
         this.magasinVo = magasinVo;
     }
-    
+
     public String getReference() {
         return reference;
     }
@@ -86,6 +86,11 @@ public class StockVo {
 
     public void setMagasinVo(MagasinVo magasinVo) {
         this.magasinVo = magasinVo;
+    }
+
+    @Override
+    public String toString() {
+        return "StockVo{" + "reference=" + reference + ", referenceReception=" + referenceReception + ", referenceProduit=" + referenceProduit + ", qte=" + qte + ", qteDeffectueuse=" + qteDeffectueuse + ", seuilAlert=" + seuilAlert + ", magasinVo=" + magasinVo + '}';
     }
 
 }

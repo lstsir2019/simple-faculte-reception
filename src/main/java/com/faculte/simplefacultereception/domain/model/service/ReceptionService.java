@@ -16,6 +16,8 @@ public interface ReceptionService {
 
     public int createReception(Reception reception);
 
+    public String generateReceptionReference();
+
     public List<Reception> findAll();
 
     public Reception findByReference(String reference);

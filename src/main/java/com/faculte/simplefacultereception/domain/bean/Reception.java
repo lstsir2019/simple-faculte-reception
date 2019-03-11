@@ -38,6 +38,10 @@ public class Reception implements Serializable {
     @OneToMany(mappedBy = "reception")
     private List<ReceptionItem> receptionItems = new ArrayList<>();
 
+    public Reception() {
+        // JPA 
+    }
+    
     public Long getId() {
         return id;
     }

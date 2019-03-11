@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
  *
  * @author Anas
  */
-@FeignClient(name = "microservice-magasin", url = "localhost:8040")
-@RibbonClient(name = "microservice-magasin")
+@FeignClient(name = "microservice-stock", url = "localhost:8040")
+@RibbonClient(name = "microservice-stock")
 public interface StockProxy {
 
-    @PostMapping("/stock-api/stock/")
+    @PostMapping("/stock-api/stocks/")
     public int create(@RequestBody List<StockVo> stocks);
 
 }

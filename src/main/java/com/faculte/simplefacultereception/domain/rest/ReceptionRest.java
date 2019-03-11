@@ -5,14 +5,13 @@
  */
 package com.faculte.simplefacultereception.domain.rest;
 
-import com.faculte.simplefacultereception.domain.rest.converter.ReceptionConverter;
-import com.faculte.simplefacultereception.domain.rest.converter.ReceptionItemConverter;
-import com.faculte.simplefacultereception.domain.rest.vo.ReceptionItemVo;
+import com.faculte.simplefacultereception.domain.bean.Reception;
 import com.faculte.simplefacultereception.domain.rest.vo.ReceptionVo;
-import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
+import com.faculte.simplefacultereception.domain.rest.converter.AbstractConverter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Anas
  */
 @RestController
-//@CrossOrigin(origins = "http://127.0.0.1:4200")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/reception-api/receptions")
 public class ReceptionRest {
@@ -34,7 +32,8 @@ public class ReceptionRest {
     @Autowired
     private ReceptionService receptionService;
     @Autowired
-    private ReceptionConverter receptionConverter;
+    @Qualifier("receptionConverter")
+    private AbstractConverter<Reception,ReceptionVo> receptionConverter;
 
     @PostMapping("/")
     public int createReception(@RequestBody ReceptionVo receptionVo) {
@@ -51,6 +50,12 @@ public class ReceptionRest {
         return receptionConverter.toVo(receptionService.findByReference(reference));
     }
 
+    @GetMapping("/reference")
+    public String generateReceptionReference() {
+        return receptionService.generateReceptionReference();
+    }
+    
+
     public ReceptionService getReceptionService() {
         return receptionService;
     }
@@ -59,12 +64,14 @@ public class ReceptionRest {
         this.receptionService = receptionService;
     }
 
-    public ReceptionConverter getReceptionConverter() {
+    public AbstractConverter<Reception, ReceptionVo> getReceptionConverter() {
         return receptionConverter;
     }
 
-    public void setReceptionConverter(ReceptionConverter receptionConverter) {
+    public void setReceptionConverter(AbstractConverter<Reception, ReceptionVo> receptionConverter) {
         this.receptionConverter = receptionConverter;
     }
+
+  
 
 }

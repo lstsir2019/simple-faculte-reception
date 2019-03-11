@@ -31,7 +31,7 @@ public class ReceptionItemsRest {
     private ReceptionItemConverter receptionItemConverter;
 
     @GetMapping("/reference/{reference}")
-    public List<ReceptionItemVo> findByReceptionreference(@PathVariable("reference") String reference) {
+    public List<ReceptionItemVo> findReceptionItemsByReceptionreference(@PathVariable("reference") String reference) {
         return receptionItemConverter.toVo(receptionItemService.findByReceptionReference(reference));
     }
 
