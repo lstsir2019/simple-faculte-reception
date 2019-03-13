@@ -122,7 +122,7 @@ public class Reception implements Serializable {
 
     @Override
     public String toString() {
-        return "fst.sir.receptionapi.bean.Reception[ id=" + id + " ]";
+        return "Reception{" + "id=" + id + ", reference=" + reference + ", referenceCommande=" + referenceCommande + ", codeFournisseur=" + codeFournisseur + ", dateReception=" + dateReception + ", total=" + total + ", receptionItems=" + receptionItems + '}';
     }
 
 }

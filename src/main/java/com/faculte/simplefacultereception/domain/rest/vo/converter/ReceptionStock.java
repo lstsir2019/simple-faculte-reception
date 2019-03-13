@@ -25,18 +25,10 @@ public class ReceptionStock {
     private StockProxy stockProxy;
 
     public Boolean saveStock(List<ReceptionItem> receptionItems) {
-        //valide si Stock est enregistre sans problem 
         int res = 0;
-//        for (ReceptionItem receptionItem : receptionItems) {
-//            StockVo stockVo = receptionItemToStock(receptionItem);
-//        }
         List<StockVo> stockVos = receptionItemsToStocks(receptionItems);
         if (stockVos != null && !stockVos.isEmpty()) {
             res = stockProxy.create(stockVos);
-            System.out.println("*********************************SaveStock*************************");
-            System.out.println(stockVos);
-            System.out.println("*******************************************************************");
-
         }
         return res == 1;
     }
@@ -47,6 +39,7 @@ public class ReceptionStock {
             StockVo stockVo = new StockVo();
             stockVo.setReferenceProduit(receptionItem.getReferenceProduit());
             stockVo.setReferenceReception(receptionItem.getReception().getReference());
+            stockVo.setReferenceCommande(receptionItem.getReception().getReferenceCommande());
             stockVo.setQte(receptionItem.getQte());
             stockVo.setMagasinVo(new MagasinVo(receptionItem.getReferenceMagasin()));
             return stockVo;

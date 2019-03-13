@@ -97,7 +97,9 @@ public class ReceptionItem implements Serializable {
 
     @Override
     public String toString() {
-        return "fst.sir.receptionapi.bean.ReceptionItem[ id=" + id + " ]";
+        return "ReceptionItem{" + "id=" + id + ", referenceCategorie=" + referenceCategorie + ", referenceProduit=" + referenceProduit + ", referenceMagasin=" + referenceMagasin + ", qte=" + qte + '}';
     }
+
+   
 
 }

@@ -14,6 +14,7 @@ public class StockVo {
     private String reference;
     private String referenceReception;
     private String referenceProduit;
+    private String referenceCommande;
     private int qte;
     private int qteDeffectueuse;
     private int seuilAlert;
@@ -46,6 +47,14 @@ public class StockVo {
 
     public void setReferenceReception(String referenceReception) {
         this.referenceReception = referenceReception;
+    }
+
+    public String getReferenceCommande() {
+        return referenceCommande;
+    }
+
+    public void setReferenceCommande(String referenceCommande) {
+        this.referenceCommande = referenceCommande;
     }
 
     public String getReferenceProduit() {
@@ -90,7 +99,9 @@ public class StockVo {
 
     @Override
     public String toString() {
-        return "StockVo{" + "reference=" + reference + ", referenceReception=" + referenceReception + ", referenceProduit=" + referenceProduit + ", qte=" + qte + ", qteDeffectueuse=" + qteDeffectueuse + ", seuilAlert=" + seuilAlert + ", magasinVo=" + magasinVo + '}';
+        return "StockVo{" + "reference=" + reference + ", referenceReception=" + referenceReception + ", referenceProduit=" + referenceProduit + ", referenceCommande=" + referenceCommande + ", qte=" + qte + ", qteDeffectueuse=" + qteDeffectueuse + ", seuilAlert=" + seuilAlert + ", magasinVo=" + magasinVo + '}';
     }
+
+  
 
 }
