@@ -6,9 +6,11 @@
 package com.faculte.simplefacultereception.domain.rest;
 
 import com.faculte.simplefacultereception.domain.bean.Reception;
+import com.faculte.simplefacultereception.domain.model.dao.SearchDao;
 import com.faculte.simplefacultereception.domain.rest.vo.ReceptionVo;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
 import com.faculte.simplefacultereception.domain.rest.converter.AbstractConverter;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +35,20 @@ public class ReceptionRest {
     private ReceptionService receptionService;
     @Autowired
     @Qualifier("receptionConverter")
-    private AbstractConverter<Reception,ReceptionVo> receptionConverter;
+    private AbstractConverter<Reception, ReceptionVo> receptionConverter;
+
+    @Autowired
+    SearchDao searchDao;
+
+    @GetMapping("/test/search/{reference}/{commande}")
+    public List<Reception> findByCriteria(@PathVariable String reference, @PathVariable String commande, Date dateMin, Date dateMax, Double qte) {
+        return searchDao.findByCriteria(reference, commande, dateMin, dateMax, qte);
+    }
+
+    @GetMapping("/referencecommande/{refcommande}/strategy/{strategy}")
+    public List<ReceptionVo> findStocksByCommandeAndStrategy(@PathVariable String refcommande, @PathVariable String strategy) {
+        return receptionConverter.toVo(receptionService.findStocksByCommandeAndStrategy(refcommande, strategy));
+    }
 
     @PostMapping("/")
     public int createReception(@RequestBody ReceptionVo receptionVo) {
@@ -54,7 +69,6 @@ public class ReceptionRest {
     public String generateReceptionReference() {
         return receptionService.generateReceptionReference();
     }
-    
 
     public ReceptionService getReceptionService() {
         return receptionService;
@@ -71,7 +85,5 @@ public class ReceptionRest {
     public void setReceptionConverter(AbstractConverter<Reception, ReceptionVo> receptionConverter) {
         this.receptionConverter = receptionConverter;
     }
-
-  
 
 }

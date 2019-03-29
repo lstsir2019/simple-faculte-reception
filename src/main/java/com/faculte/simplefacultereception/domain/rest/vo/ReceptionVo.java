@@ -5,6 +5,7 @@
  */
 package com.faculte.simplefacultereception.domain.rest.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,7 @@ public class ReceptionVo {
         this.total = total;
     }
 
+    @JsonIgnore
     public List<ReceptionItemVo> getReceptionItems() {
         return receptionItems;
     }

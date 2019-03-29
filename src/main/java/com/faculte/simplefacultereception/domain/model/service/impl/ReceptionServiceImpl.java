@@ -76,6 +76,17 @@ public class ReceptionServiceImpl implements ReceptionService {
     }
 
     @Override
+    public List<Reception> findStocksByCommandeAndStrategy(String refreception, String strategy) {
+        if (strategy.equalsIgnoreCase("FIFO")) {
+            return receptionDao.findByReferenceCommandeOrderByDateReceptionAsc(refreception);
+        } else if (strategy.equalsIgnoreCase("LIFO")) {
+            return receptionDao.findByReferenceCommandeOrderByDateReceptionDesc(refreception);
+        } else {
+            return receptionDao.findByReferenceCommande(refreception);
+        }
+    }
+
+    @Override
     public String generateReceptionReference() {
         long i = receptionDao.count() + 1;
         int year = Year.now().getValue();

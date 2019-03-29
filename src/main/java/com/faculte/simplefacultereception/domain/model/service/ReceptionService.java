@@ -18,6 +18,8 @@ public interface ReceptionService {
 
     public String generateReceptionReference();
 
+    public List<Reception> findStocksByCommandeAndStrategy(String refreception, String strategy);
+
     public List<Reception> findAll();
 
     public Reception findByReference(String reference);

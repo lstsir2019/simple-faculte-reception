@@ -5,11 +5,13 @@
  */
 package com.faculte.simplefacultereception.domain.rest.vo.converter;
 
+import com.faculte.simplefacultereception.commun.util.DateUtil;
 import com.faculte.simplefacultereception.domain.bean.ReceptionItem;
 import com.faculte.simplefacultereception.domain.rest.proxy.StockProxy;
 import com.faculte.simplefacultereception.domain.rest.vo.exchange.MagasinVo;
 import com.faculte.simplefacultereception.domain.rest.vo.exchange.StockVo;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,10 +22,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ReceptionStock {
-
+    
     @Autowired
     private StockProxy stockProxy;
-
+    
     public Boolean saveStock(List<ReceptionItem> receptionItems) {
         int res = 0;
         List<StockVo> stockVos = receptionItemsToStocks(receptionItems);
@@ -32,7 +34,7 @@ public class ReceptionStock {
         }
         return res == 1;
     }
-
+    
     private StockVo receptionItemToStock(ReceptionItem receptionItem) {
         //Methode permet de transforme ReceptionItem to Stock 
         if (receptionItem != null) {
@@ -41,13 +43,14 @@ public class ReceptionStock {
             stockVo.setReferenceReception(receptionItem.getReception().getReference());
             stockVo.setReferenceCommande(receptionItem.getReception().getReferenceCommande());
             stockVo.setQte(receptionItem.getQte());
+            stockVo.setDateReception(DateUtil.formateDate(receptionItem.getReception().getDateReception()));
             stockVo.setMagasinVo(new MagasinVo(receptionItem.getReferenceMagasin()));
             return stockVo;
         } else {
             return new StockVo();
         }
     }
-
+    
     private List<StockVo> receptionItemsToStocks(List<ReceptionItem> receptionItems) {
         List<StockVo> stockVos = new ArrayList<>();
         if (receptionItems != null && !receptionItems.isEmpty()) {
@@ -56,13 +59,13 @@ public class ReceptionStock {
         }
         return new ArrayList<>();
     }
-
+    
     public StockProxy getStockProxy() {
         return stockProxy;
     }
-
+    
     public void setStockProxy(StockProxy stockProxy) {
         this.stockProxy = stockProxy;
     }
-
+    
 }

@@ -15,6 +15,7 @@ public class StockVo {
     private String referenceReception;
     private String referenceProduit;
     private String referenceCommande;
+    private String dateReception;
     private int qte;
     private int qteDeffectueuse;
     private int seuilAlert;
@@ -57,6 +58,15 @@ public class StockVo {
         this.referenceCommande = referenceCommande;
     }
 
+    public String getDateReception() {
+        return dateReception;
+    }
+
+    public void setDateReception(String dateReception) {
+        this.dateReception = dateReception;
+    }
+
+    
     public String getReferenceProduit() {
         return referenceProduit;
     }
