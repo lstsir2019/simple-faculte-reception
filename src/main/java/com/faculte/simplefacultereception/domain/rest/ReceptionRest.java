@@ -5,8 +5,8 @@
  */
 package com.faculte.simplefacultereception.domain.rest;
 
+import com.faculte.simplefacultereception.commun.util.DateUtil;
 import com.faculte.simplefacultereception.domain.bean.Reception;
-import com.faculte.simplefacultereception.domain.model.dao.SearchDao;
 import com.faculte.simplefacultereception.domain.rest.vo.ReceptionVo;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
 import com.faculte.simplefacultereception.domain.rest.converter.AbstractConverter;
@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.faculte.simplefacultereception.domain.model.dao.ReceptionSearch;
+import org.springframework.util.unit.DataUnit;
 
 /**
  *
@@ -37,12 +39,10 @@ public class ReceptionRest {
     @Qualifier("receptionConverter")
     private AbstractConverter<Reception, ReceptionVo> receptionConverter;
 
-    @Autowired
-    SearchDao searchDao;
 
-    @GetMapping("/test/search/{reference}/{commande}")
-    public List<Reception> findByCriteria(@PathVariable String reference, @PathVariable String commande, Date dateMin, Date dateMax, Double qte) {
-        return searchDao.findByCriteria(reference, commande, dateMin, dateMax, qte);
+    @GetMapping("/search")
+    public List<Reception> findByCriteria(@RequestBody ReceptionVo receptionVo) {
+        return receptionService.findByCriteria(receptionVo.getReference(), receptionVo.getReferenceCommande(), DateUtil.parseDate(receptionVo.getDateMin()), DateUtil.parseDate(receptionVo.getDateMax()));
     }
 
     @GetMapping("/referencecommande/{refcommande}/strategy/{strategy}")

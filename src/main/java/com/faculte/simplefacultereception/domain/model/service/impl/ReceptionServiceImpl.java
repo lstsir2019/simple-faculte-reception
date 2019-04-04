@@ -7,11 +7,12 @@ package com.faculte.simplefacultereception.domain.model.service.impl;
 
 import com.faculte.simplefacultereception.domain.bean.Reception;
 import com.faculte.simplefacultereception.domain.model.dao.ReceptionDao;
+import com.faculte.simplefacultereception.domain.model.dao.ReceptionSearch;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
 import com.faculte.simplefacultereception.domain.rest.vo.converter.ReceptionStock;
 import java.time.Year;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class ReceptionServiceImpl implements ReceptionService {
 
     @Autowired
     private ReceptionDao receptionDao;
+    @Autowired
+    private ReceptionSearch receptionSearch;
     @Autowired
     private ReceptionItemService receptionItemService;
     @Autowired
@@ -92,6 +95,11 @@ public class ReceptionServiceImpl implements ReceptionService {
         int year = Year.now().getValue();
         String reference = "rec-" + year + "-" + i;
         return reference;
+    }
+
+    @Override
+    public List<Reception> findByCriteria(String reference, String commande, Date dateMin, Date dateMax) {
+        return receptionSearch.findByCriteria(reference, commande, dateMin, dateMax);
     }
 
     @Override

@@ -7,6 +7,7 @@ package com.faculte.simplefacultereception.domain.model.service;
 
 import com.faculte.simplefacultereception.domain.bean.Reception;
 import com.faculte.simplefacultereception.domain.bean.ReceptionItem;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public interface ReceptionItemService {
 
     public int saveReceptionItem(ReceptionItem receptionItem);
 
+    
     public List<ReceptionItem> findByReceptionReference(String reference);
 
     public int saveReceptionItems(Reception reception, List<ReceptionItem> receptionItems);

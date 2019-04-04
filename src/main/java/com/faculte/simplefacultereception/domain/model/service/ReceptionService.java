@@ -6,6 +6,7 @@
 package com.faculte.simplefacultereception.domain.model.service;
 
 import com.faculte.simplefacultereception.domain.bean.Reception;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,8 @@ public interface ReceptionService {
     public int createReception(Reception reception);
 
     public String generateReceptionReference();
+
+    public List<Reception> findByCriteria(String reference, String commande, Date dateMin, Date dateMax);
 
     public List<Reception> findStocksByCommandeAndStrategy(String refreception, String strategy);
 

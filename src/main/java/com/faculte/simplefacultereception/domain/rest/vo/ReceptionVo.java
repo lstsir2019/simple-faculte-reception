@@ -19,6 +19,8 @@ public class ReceptionVo {
     private String reference;
     private String referenceCommande;
     private String dateReception;
+    private String dateMin;
+    private String dateMax;
     private String total;
     private List<ReceptionItemVo> receptionItems = new ArrayList<>();
 
@@ -62,6 +64,22 @@ public class ReceptionVo {
     @JsonSetter
     public void setReceptionItems(List<ReceptionItemVo> receptionItems) {
         this.receptionItems = receptionItems;
+    }
+
+    public String getDateMin() {
+        return dateMin;
+    }
+
+    public void setDateMin(String dateMin) {
+        this.dateMin = dateMin;
+    }
+
+    public String getDateMax() {
+        return dateMax;
+    }
+
+    public void setDateMax(String dateMax) {
+        this.dateMax = dateMax;
     }
 
     
