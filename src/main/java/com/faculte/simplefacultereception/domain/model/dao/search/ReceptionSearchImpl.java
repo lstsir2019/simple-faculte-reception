@@ -25,13 +25,9 @@ public class ReceptionSearchImpl  implements ReceptionSearch{
 
     public List<Reception> findByCriteria(String reference, String commande, Date dateMin, Date dateMax) {
         String query = "SELECT r FROM Reception r where 1=1";
-        if (reference != null && !reference.isEmpty()) {
-            query += " and r.reference like '%" + reference + "%'";
-        }
-        if (commande != null && !commande.isEmpty()) {
-            query += " and r.referenceCommande='" + commande + "'";
-        }
-        SearchUtil.addConstraintMinMaxDate("r", "dateReception", dateMin, dateMax);
+        query+=SearchUtil.addConstraint("r", "reference", "LIKE", reference);
+        query+=SearchUtil.addConstraint("r", "referenceCommande", "LIKE", commande);
+        query+=SearchUtil.addConstraintMinMaxDate("r", "dateReception", dateMin, dateMax);
         return entityManager.createQuery(query).getResultList();
     }
 
