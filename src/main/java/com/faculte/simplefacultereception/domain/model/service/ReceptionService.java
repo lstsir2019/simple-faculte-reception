@@ -29,4 +29,6 @@ public interface ReceptionService {
 
     public List<Reception> findByCommandeReference(String reference);
 
+    public int removeByReference(String reference);
+
 }

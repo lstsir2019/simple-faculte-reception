@@ -11,12 +11,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+
 
 /**
  *
@@ -35,13 +37,13 @@ public class Reception implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateReception;
     private double total;
-    @OneToMany(mappedBy = "reception")
+    @OneToMany(mappedBy = "reception",cascade = {CascadeType.REMOVE})
     private List<ReceptionItem> receptionItems = new ArrayList<>();
 
     public Reception() {
         // JPA 
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -101,7 +103,6 @@ public class Reception implements Serializable {
     public void setTotal(double total) {
         this.total = total;
     }
-
 
     @Override
     public int hashCode() {

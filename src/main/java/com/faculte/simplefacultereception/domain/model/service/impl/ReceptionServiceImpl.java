@@ -57,6 +57,7 @@ public class ReceptionServiceImpl implements ReceptionService {
             return 1;
         }
     }
+    
 
     private int saveReception(Reception reception) {
         //cette méthode permet de sauvegarder reception seul dans la base de donnes
@@ -101,6 +102,19 @@ public class ReceptionServiceImpl implements ReceptionService {
     public List<Reception> findByCriteria(String reference, String commande, Date dateMin, Date dateMax) {
         return receptionSearch.findByCriteria(reference, commande, dateMin, dateMax);
     }
+
+    @Override
+    public int removeByReference(String reference) {
+        Reception reception=findByReference(reference);
+        if(reception!=null){
+             receptionDao.delete(reception);
+             return 1;
+        }else{
+            return -1;
+        }
+    }
+    
+    
 
     @Override
     public List<Reception> findAll() {

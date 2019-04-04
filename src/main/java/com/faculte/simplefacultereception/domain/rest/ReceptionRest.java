@@ -10,19 +10,17 @@ import com.faculte.simplefacultereception.domain.bean.Reception;
 import com.faculte.simplefacultereception.domain.rest.vo.ReceptionVo;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
 import com.faculte.simplefacultereception.domain.rest.converter.AbstractConverter;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.faculte.simplefacultereception.domain.model.dao.ReceptionSearch;
-import org.springframework.util.unit.DataUnit;
 
 /**
  *
@@ -39,7 +37,7 @@ public class ReceptionRest {
     @Qualifier("receptionConverter")
     private AbstractConverter<Reception, ReceptionVo> receptionConverter;
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public List<ReceptionVo> findByCriteria(@RequestBody ReceptionVo receptionVo) {
         return receptionConverter.toVo(receptionService.findByCriteria(receptionVo.getReference(), receptionVo.getReferenceCommande(), DateUtil.parseDate(receptionVo.getDateMin()), DateUtil.parseDate(receptionVo.getDateMax())));
     }
@@ -54,7 +52,7 @@ public class ReceptionRest {
         return receptionService.createReception(receptionConverter.toItem(receptionVo));
     }
 
-    @GetMapping("/receptions")
+    @GetMapping("/")
     public List<ReceptionVo> findAll() {
         return receptionConverter.toVo(receptionService.findAll());
     }
@@ -62,6 +60,11 @@ public class ReceptionRest {
     @GetMapping("/reference/{reference}")
     public ReceptionVo findReceptionByReference(@PathVariable String reference) {
         return receptionConverter.toVo(receptionService.findByReference(reference));
+    }
+
+    @DeleteMapping("/reference/{reference}")
+    public void removeReceptionByReference(@PathVariable String reference) {
+         receptionService.removeByReference(reference);
     }
 
     @GetMapping("/reference")
