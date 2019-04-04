@@ -39,10 +39,9 @@ public class ReceptionRest {
     @Qualifier("receptionConverter")
     private AbstractConverter<Reception, ReceptionVo> receptionConverter;
 
-
     @GetMapping("/search")
-    public List<Reception> findByCriteria(@RequestBody ReceptionVo receptionVo) {
-        return receptionService.findByCriteria(receptionVo.getReference(), receptionVo.getReferenceCommande(), DateUtil.parseDate(receptionVo.getDateMin()), DateUtil.parseDate(receptionVo.getDateMax()));
+    public List<ReceptionVo> findByCriteria(@RequestBody ReceptionVo receptionVo) {
+        return receptionConverter.toVo(receptionService.findByCriteria(receptionVo.getReference(), receptionVo.getReferenceCommande(), DateUtil.parseDate(receptionVo.getDateMin()), DateUtil.parseDate(receptionVo.getDateMax())));
     }
 
     @GetMapping("/referencecommande/{refcommande}/strategy/{strategy}")
