@@ -22,19 +22,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ReceptionStock {
-    
+
     @Autowired
     private StockProxy stockProxy;
-    
+
     public Boolean saveStock(List<ReceptionItem> receptionItems) {
         int res = 0;
-        List<StockVo> stockVos = receptionItemsToStocks(receptionItems);
-        if (stockVos != null && !stockVos.isEmpty()) {
-            res = stockProxy.create(stockVos);
+        for (ReceptionItem receptionItem : receptionItems) {
+            StockVo stockVo = receptionItemToStock(receptionItem);
+            int re = stockProxy.save(stockVo);
+            if (re < 1) {
+                return false;
+            }
+            res += re;
         }
-        return res == 1;
+        return res == receptionItems.size();        
     }
-    
+
     private StockVo receptionItemToStock(ReceptionItem receptionItem) {
         //Methode permet de transforme ReceptionItem to Stock 
         if (receptionItem != null) {
@@ -50,22 +54,14 @@ public class ReceptionStock {
             return new StockVo();
         }
     }
-    
-    private List<StockVo> receptionItemsToStocks(List<ReceptionItem> receptionItems) {
-        List<StockVo> stockVos = new ArrayList<>();
-        if (receptionItems != null && !receptionItems.isEmpty()) {
-            receptionItems.forEach(receptionItem -> stockVos.add(receptionItemToStock(receptionItem)));
-            return stockVos;
-        }
-        return new ArrayList<>();
-    }
+
     
     public StockProxy getStockProxy() {
         return stockProxy;
     }
-    
+
     public void setStockProxy(StockProxy stockProxy) {
         this.stockProxy = stockProxy;
     }
-    
+
 }

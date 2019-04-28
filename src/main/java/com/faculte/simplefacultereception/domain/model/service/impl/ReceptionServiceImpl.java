@@ -10,11 +10,13 @@ import com.faculte.simplefacultereception.domain.model.dao.ReceptionDao;
 import com.faculte.simplefacultereception.domain.model.dao.ReceptionSearch;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
+import com.faculte.simplefacultereception.domain.rest.proxy.StockProxy;
 import com.faculte.simplefacultereception.domain.rest.vo.converter.ReceptionStock;
 import java.time.Year;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,12 +34,14 @@ public class ReceptionServiceImpl implements ReceptionService {
     private ReceptionItemService receptionItemService;
     @Autowired
     private ReceptionStock receptionStock;
+    @Autowired
+    private StockProxy stockProxy;
 
     @Override
     public int createReception(Reception reception) {
         /*  1) On sauvegarder Reception BD
         *   2) On sauvegarder Les ReceptionItems
-        *   3) on sauvegarder Stock  (receptionItem==Stock)    
+        *   3) on sauvegarder Stock v  (receptionItem==Stock)    
         *   Si methode return res < 0 Alors reception ne peut pas etre sauvegardé
          */
         int res = saveReception(reception);
@@ -47,17 +51,20 @@ public class ReceptionServiceImpl implements ReceptionService {
         //  Methode qui permet de enregistre les ReceptionItems
         int i = receptionItemService.saveReceptionItems(reception, reception.getReceptionItems());
         if (i < 0) {
+            receptionDao.delete(reception);
             return -5;
         }
         // On sauvegarde  Stock ReceptionItem == Stock
         Boolean resStock = receptionStock.saveStock(reception.getReceptionItems());
         if (!resStock) {
+            System.out.println(resStock + "fffffffffffffffffffffffffffffffffffffffff");
+            receptionDao.delete(reception);
+            stockProxy.deleteByReferenceCommandeAndReception(reception.getReferenceCommande(), reception.getReference());
             return -6;
         } else {
             return 1;
         }
     }
-    
 
     private int saveReception(Reception reception) {
         //cette méthode permet de sauvegarder reception seul dans la base de donnes
@@ -105,20 +112,18 @@ public class ReceptionServiceImpl implements ReceptionService {
 
     @Override
     public int removeByReference(String reference) {
-        Reception reception=findByReference(reference);
-        if(reception!=null){
-             receptionDao.delete(reception);
-             return 1;
-        }else{
+        Reception reception = findByReference(reference);
+        if (reception != null) {
+            receptionDao.delete(reception);
+            return 1;
+        } else {
             return -1;
         }
     }
-    
-    
 
     @Override
     public List<Reception> findAll() {
-        return receptionDao.findAll();
+        return receptionDao.findAll(new Sort(Sort.Direction.DESC, "dateReception"));
     }
 
     @Override

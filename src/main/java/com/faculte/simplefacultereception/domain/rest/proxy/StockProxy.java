@@ -9,6 +9,8 @@ import com.faculte.simplefacultereception.domain.rest.vo.exchange.StockVo;
 import java.util.List;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,11 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
  *
  * @author Anas
  */
-@FeignClient(name = "microservice-stock", url = "localhost:8040")
+@FeignClient(name = "microservice-stock", url = "localhost:8042")
 @RibbonClient(name = "microservice-stock")
 public interface StockProxy {
 
     @PostMapping("/stock-api/stocks/")
     public int create(@RequestBody List<StockVo> stocks);
+
+    @PostMapping("/stock-api/stocks/")
+    public int save(@RequestBody StockVo stock);
+
+    @DeleteMapping("/stock-api/stocks/commande/{referencecommande}/reception/{referencereception}")
+    public void deleteByReferenceCommandeAndReception(@PathVariable("referencecommande") String referencecommande, @PathVariable("referencereception") String referencereception);
 
 }

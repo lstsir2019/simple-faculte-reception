@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 public interface ReceptionDao extends JpaRepository<Reception, Long> {
 
     public Reception findByReference(String reference);
-
+    
     public List<Reception> findByReferenceCommande(String reference);
 
     public List<Reception> findByReferenceCommandeOrderByDateReceptionDesc(String refReception);
