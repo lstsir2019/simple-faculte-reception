@@ -26,7 +26,7 @@ public class ReceptionItem implements Serializable {
     private String referenceCategorie;
     private String referenceProduit;
     private String referenceMagasin;
-    private int qte;
+    private double qte;
     @ManyToOne
     private Reception reception;
 
@@ -69,11 +69,11 @@ public class ReceptionItem implements Serializable {
         this.referenceCategorie = referenceCategorie;
     }
 
-    public int getQte() {
+    public double getQte() {
         return qte;
     }
 
-    public void setQte(int qte) {
+    public void setQte(double qte) {
         this.qte = qte;
     }
 
@@ -99,7 +99,5 @@ public class ReceptionItem implements Serializable {
     public String toString() {
         return "ReceptionItem{" + "id=" + id + ", referenceCategorie=" + referenceCategorie + ", referenceProduit=" + referenceProduit + ", referenceMagasin=" + referenceMagasin + ", qte=" + qte + '}';
     }
-
-   
 
 }

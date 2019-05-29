@@ -6,13 +6,20 @@
 package com.faculte.simplefacultereception.domain.rest;
 
 import com.faculte.simplefacultereception.commun.util.DateUtil;
+import com.faculte.simplefacultereception.commun.util.GeneratePdf;
 import com.faculte.simplefacultereception.domain.bean.Reception;
+import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
 import com.faculte.simplefacultereception.domain.rest.vo.ReceptionVo;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionService;
 import com.faculte.simplefacultereception.domain.rest.converter.AbstractConverter;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +41,8 @@ public class ReceptionRest {
     @Autowired
     private ReceptionService receptionService;
     @Autowired
+    private ReceptionItemService receptionItemService;
+    @Autowired
     @Qualifier("receptionConverter")
     private AbstractConverter<Reception, ReceptionVo> receptionConverter;
 
@@ -49,7 +58,8 @@ public class ReceptionRest {
 
     @PostMapping("/")
     public int createReception(@RequestBody ReceptionVo receptionVo) {
-        return receptionService.createReception(receptionConverter.toItem(receptionVo));
+        int res = receptionService.createReception(receptionConverter.toItem(receptionVo));
+        return res;
     }
 
     @GetMapping("/")
@@ -62,9 +72,23 @@ public class ReceptionRest {
         return receptionConverter.toVo(receptionService.findByReference(reference));
     }
 
+    @GetMapping("/pdf/reference/{reference}")
+    public ResponseEntity<Object> CommandePrint(@PathVariable String reference) throws JRException, IOException {
+        Reception r = receptionService.findByReference(reference);
+        if (r == null) {
+            r = new Reception();
+        }
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("dateReception", r.getDateReception());
+        parameters.put("referenceCommande", r.getReferenceCommande());
+        parameters.put("reference", r.getReference());
+
+        return GeneratePdf.generate("reception", parameters, receptionItemService.findByReceptionReference(reference), "/reports/reception.jasper");
+    }
+
     @DeleteMapping("/reference/{reference}")
     public void removeReceptionByReference(@PathVariable String reference) {
-         receptionService.removeByReference(reference);
+        receptionService.removeByReference(reference);
     }
 
     @GetMapping("/reference")

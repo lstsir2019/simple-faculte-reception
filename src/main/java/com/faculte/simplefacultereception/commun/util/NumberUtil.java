@@ -13,10 +13,11 @@ import java.math.BigDecimal;
  */
 public class NumberUtil {
 
+    private static final String CHAINE_VIDE = "";
+
     private NumberUtil() {
         throw new IllegalStateException("Utility class");
     }
-    private static final String CHAINE_VIDE = "";
 
     public static Double toDouble(String value) {
         if (value == null || value.isEmpty()) {

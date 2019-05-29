@@ -24,7 +24,7 @@ public class ReceptionItemConverter extends AbstractConverter<ReceptionItem, Rec
             receptionItem.setReferenceCategorie(receptionItemVo.getReferenceCategorie());
             receptionItem.setReferenceProduit(receptionItemVo.getReferenceProduit());
             receptionItem.setReferenceMagasin(receptionItemVo.getReferenceMagasin());
-            receptionItem.setQte(NumberUtil.toInteger(receptionItemVo.getQte()));
+            receptionItem.setQte(NumberUtil.toDouble(receptionItemVo.getQte()));
             return receptionItem;
         }
         return null;

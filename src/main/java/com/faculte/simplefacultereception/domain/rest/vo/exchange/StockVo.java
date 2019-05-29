@@ -16,23 +16,15 @@ public class StockVo {
     private String referenceProduit;
     private String referenceCommande;
     private String dateReception;
-    private int qte;
-    private int qteDeffectueuse;
-    private int seuilAlert;
+    private String qte;
+    private String qteDeffectueuse;
+    private String seuilAlert;
     private MagasinVo magasinVo;
 
     public StockVo() {
     }
 
-    public StockVo(String reference, String referenceReception, String referenceProduit, int qte, int qteDeffectueuse, int seuilAlert, MagasinVo magasinVo) {
-        this.reference = reference;
-        this.referenceReception = referenceReception;
-        this.referenceProduit = referenceProduit;
-        this.qte = qte;
-        this.qteDeffectueuse = qteDeffectueuse;
-        this.seuilAlert = seuilAlert;
-        this.magasinVo = magasinVo;
-    }
+  
 
     public String getReference() {
         return reference;
@@ -75,30 +67,31 @@ public class StockVo {
         this.referenceProduit = referenceProduit;
     }
 
-    public int getQte() {
+    public String getQte() {
         return qte;
     }
 
-    public void setQte(int qte) {
+    public void setQte(String qte) {
         this.qte = qte;
     }
 
-    public int getQteDeffectueuse() {
+    public String getQteDeffectueuse() {
         return qteDeffectueuse;
     }
 
-    public void setQteDeffectueuse(int qteDeffectueuse) {
+    public void setQteDeffectueuse(String qteDeffectueuse) {
         this.qteDeffectueuse = qteDeffectueuse;
     }
 
-    public int getSeuilAlert() {
+    public String getSeuilAlert() {
         return seuilAlert;
     }
 
-    public void setSeuilAlert(int seuilAlert) {
+    public void setSeuilAlert(String seuilAlert) {
         this.seuilAlert = seuilAlert;
     }
 
+    
     public MagasinVo getMagasinVo() {
         return magasinVo;
     }

@@ -18,9 +18,12 @@ public interface ReceptionItemService {
 
     public int saveReceptionItem(ReceptionItem receptionItem);
 
-    
     public List<ReceptionItem> findByReceptionReference(String reference);
 
     public int saveReceptionItems(Reception reception, List<ReceptionItem> receptionItems);
+
+    public void incrementQteReception(List<ReceptionItem> receptionItems);
+
+    public void decrementQteReception(List<ReceptionItem> receptionItems);
 
 }

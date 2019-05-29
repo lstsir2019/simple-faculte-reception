@@ -46,7 +46,7 @@ public class ReceptionStock {
             stockVo.setReferenceProduit(receptionItem.getReferenceProduit());
             stockVo.setReferenceReception(receptionItem.getReception().getReference());
             stockVo.setReferenceCommande(receptionItem.getReception().getReferenceCommande());
-            stockVo.setQte(receptionItem.getQte());
+            stockVo.setQte(receptionItem.getQte()+"");
             stockVo.setDateReception(DateUtil.formateDate(receptionItem.getReception().getDateReception()));
             stockVo.setMagasinVo(new MagasinVo(receptionItem.getReferenceMagasin()));
             return stockVo;

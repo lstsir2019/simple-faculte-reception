@@ -9,10 +9,9 @@ import com.faculte.simplefacultereception.domain.bean.Reception;
 import com.faculte.simplefacultereception.domain.bean.ReceptionItem;
 import com.faculte.simplefacultereception.domain.model.dao.ReceptionItemDao;
 import com.faculte.simplefacultereception.domain.model.service.ReceptionItemService;
-import com.faculte.simplefacultereception.domain.rest.proxy.StockProxy;
-import com.faculte.simplefacultereception.domain.rest.vo.exchange.MagasinVo;
-import com.faculte.simplefacultereception.domain.rest.vo.exchange.StockVo;
-import java.util.ArrayList;
+import com.faculte.simplefacultereception.domain.rest.proxy.CommandeProxy;
+import com.faculte.simplefacultereception.domain.rest.vo.exchange.CommandeItemVo;
+import com.faculte.simplefacultereception.domain.rest.vo.exchange.CommandeVo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,8 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
 
     @Autowired
     private ReceptionItemDao receptionItemDao;
+    @Autowired
+    private CommandeProxy commandeProxy;
 
     @Override
     public int saveReceptionItems(Reception reception, List<ReceptionItem> receptionItems) {
@@ -39,6 +40,30 @@ public class ReceptionItemServiceImpl implements ReceptionItemService {
             }
             receptionItemDao.saveAll(receptionItems);
             return 1;
+        }
+    }
+
+    @Override
+    public void incrementQteReception(List<ReceptionItem> receptionItems) {
+        for (ReceptionItem receptionItem : receptionItems) {
+            CommandeItemVo commandeItemVo = new CommandeItemVo();
+            commandeItemVo.setQteReception(String.valueOf(receptionItem.getQte()));
+            commandeItemVo.setReferenceCommande(receptionItem.getReception().getReferenceCommande());
+            commandeItemVo.setReferenceProduit(receptionItem.getReferenceProduit());
+            commandeItemVo.setCommandeVo(new CommandeVo(receptionItem.getReception().getReferenceCommande()));
+            int i = commandeProxy.incrementQteReception(commandeItemVo);
+        }
+    }
+
+    @Override
+    public void decrementQteReception(List<ReceptionItem> receptionItems) {
+        for (ReceptionItem receptionItem : receptionItems) {
+            CommandeItemVo commandeItemVo = new CommandeItemVo();
+            commandeItemVo.setQteReception(String.valueOf(receptionItem.getQte()));
+            commandeItemVo.setReferenceCommande(receptionItem.getReception().getReferenceCommande());
+            commandeItemVo.setReferenceProduit(receptionItem.getReferenceProduit());
+            commandeItemVo.setCommandeVo(new CommandeVo(receptionItem.getReception().getReferenceCommande()));
+            commandeProxy.decrementQteReception(commandeItemVo);
         }
     }
 

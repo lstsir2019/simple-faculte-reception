@@ -57,13 +57,13 @@ public class ReceptionServiceImpl implements ReceptionService {
         // On sauvegarde  Stock ReceptionItem == Stock
         Boolean resStock = receptionStock.saveStock(reception.getReceptionItems());
         if (!resStock) {
-            System.out.println(resStock + "fffffffffffffffffffffffffffffffffffffffff");
             receptionDao.delete(reception);
             stockProxy.deleteByReferenceCommandeAndReception(reception.getReferenceCommande(), reception.getReference());
             return -6;
-        } else {
-            return 1;
         }
+        // lets increment 
+        receptionItemService.incrementQteReception(reception.getReceptionItems());
+        return 1;
     }
 
     private int saveReception(Reception reception) {
@@ -72,7 +72,7 @@ public class ReceptionServiceImpl implements ReceptionService {
             return -1;
         } else {
             Reception rec = findByReference(reception.getReference());
-            if (rec != null) {
+            if (rec != null || reception.getReference() == null || reception.getReference().isEmpty()) {
                 return -2;
             } else if (reception.getReceptionItems().isEmpty()) {
                 return -3;
@@ -115,6 +115,8 @@ public class ReceptionServiceImpl implements ReceptionService {
         Reception reception = findByReference(reference);
         if (reception != null) {
             receptionDao.delete(reception);
+            stockProxy.deleteByReferenceCommandeAndReception(reception.getReferenceCommande(), reception.getReference());
+            receptionItemService.decrementQteReception(reception.getReceptionItems());
             return 1;
         } else {
             return -1;

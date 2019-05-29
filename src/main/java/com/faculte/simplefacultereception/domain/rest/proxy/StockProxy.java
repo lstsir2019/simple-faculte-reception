@@ -6,7 +6,6 @@
 package com.faculte.simplefacultereception.domain.rest.proxy;
 
 import com.faculte.simplefacultereception.domain.rest.vo.exchange.StockVo;
-import java.util.List;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "microservice-stock", url = "localhost:8042")
 @RibbonClient(name = "microservice-stock")
 public interface StockProxy {
-
-    @PostMapping("/stock-api/stocks/")
-    public int create(@RequestBody List<StockVo> stocks);
 
     @PostMapping("/stock-api/stocks/")
     public int save(@RequestBody StockVo stock);
