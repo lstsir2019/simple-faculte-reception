@@ -33,7 +33,6 @@ public class Reception implements Serializable {
     private Long id;
     private String reference;
     private String referenceCommande;
-    private String codeFournisseur;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateReception;
     private double total;
@@ -80,14 +79,6 @@ public class Reception implements Serializable {
         this.referenceCommande = referenceCommande;
     }
 
-    public String getCodeFournisseur() {
-        return codeFournisseur;
-    }
-
-    public void setCodeFournisseur(String codeFournisseur) {
-        this.codeFournisseur = codeFournisseur;
-    }
-
     public Date getDateReception() {
         return dateReception;
     }
@@ -123,7 +114,8 @@ public class Reception implements Serializable {
 
     @Override
     public String toString() {
-        return "Reception{" + "id=" + id + ", reference=" + reference + ", referenceCommande=" + referenceCommande + ", codeFournisseur=" + codeFournisseur + ", dateReception=" + dateReception + ", total=" + total + ", receptionItems=" + receptionItems + '}';
+        return "Reception{" + "id=" + id + ", reference=" + reference + ", referenceCommande=" + referenceCommande + ", dateReception=" + dateReception + ", total=" + total + ", receptionItems=" + receptionItems + '}';
     }
 
+    
 }

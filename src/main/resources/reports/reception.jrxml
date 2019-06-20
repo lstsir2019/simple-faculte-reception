@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c972a7c0-cf34-4cea-beaf-22ec9b3a4005">
-	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.zoom" value="0.9090909090909095"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="reference" class="java.lang.String"/>
@@ -15,13 +15,6 @@
 	<title>
 		<band height="117" splitType="Stretch">
 			<staticText>
-				<reportElement x="108" y="58" width="287" height="24" uuid="39dffcb3-dadf-40d2-951a-d133f6406749"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ Faculté des Sciences et Techniques]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="395" y="93" width="83" height="24" forecolor="#666666" uuid="5a5929a0-6fb6-4887-b320-05c3e38ae5e4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
@@ -29,51 +22,55 @@
 				<text><![CDATA[Reception]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement mode="Opaque" x="-22" y="93" width="417" height="24" isRemoveLineWhenBlank="true" forecolor="#F0F0F0" backcolor="#FF9900" uuid="e2333a09-5f6f-4c25-aac9-df9a47f275f7"/>
+				<reportElement mode="Opaque" x="-22" y="104" width="417" height="13" isRemoveLineWhenBlank="true" forecolor="#F0F0F0" backcolor="#FF9900" uuid="e2333a09-5f6f-4c25-aac9-df9a47f275f7"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Opaque" x="478" y="93" width="106" height="24" isRemoveLineWhenBlank="true" forecolor="#F0F0F0" backcolor="#FF9900" uuid="a1b0a4f6-fb8f-4e16-b670-bea8b5c0369b"/>
+				<reportElement mode="Opaque" x="478" y="104" width="106" height="13" isRemoveLineWhenBlank="true" forecolor="#F0F0F0" backcolor="#FF9900" uuid="a1b0a4f6-fb8f-4e16-b670-bea8b5c0369b"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="-22" y="93" width="16" height="24" forecolor="#F0F0F0" backcolor="#666666" uuid="d7e8668d-19fb-4660-b01d-5e07ad7e80a7"/>
+				<reportElement x="-22" y="104" width="16" height="13" forecolor="#F0F0F0" backcolor="#666666" uuid="d7e8668d-19fb-4660-b01d-5e07ad7e80a7"/>
 			</rectangle>
+			<image>
+				<reportElement x="131" y="-16" width="347" height="109" uuid="1d5184b4-16bb-4766-90a3-d0b8782944f3"/>
+				<imageExpression><![CDATA["C:\\simple-faculte\\reception\\assets\\image\\fstg.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="38" splitType="Stretch">
+		<band height="101" splitType="Stretch">
 			<textField>
-				<reportElement x="277" y="0" width="118" height="20" uuid="e7c4b260-6339-4601-90b4-14c921df8a13"/>
+				<reportElement x="279" y="22" width="118" height="20" uuid="e7c4b260-6339-4601-90b4-14c921df8a13"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{reference}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="75" y="0" width="115" height="20" uuid="8e4cd766-fcd3-4ba7-84a1-d15c4b23ae8f"/>
+				<reportElement x="77" y="22" width="115" height="20" uuid="8e4cd766-fcd3-4ba7-84a1-d15c4b23ae8f"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{referenceCommande}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="-2" y="0" width="77" height="20" uuid="afbd1fb9-061a-4eb3-b85f-34e8ca4e6b6f"/>
+				<reportElement x="0" y="22" width="77" height="20" uuid="afbd1fb9-061a-4eb3-b85f-34e8ca4e6b6f"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Commande:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="202" y="0" width="69" height="20" uuid="b2bcd998-b02b-4d97-bf28-9bf76eccfdf2"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="204" y="22" width="69" height="20" uuid="b2bcd998-b02b-4d97-bf28-9bf76eccfdf2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reference :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="0" width="36" height="20" uuid="1015d73d-b4d5-4b2d-a3f2-81208f881e2e"/>
+				<reportElement x="402" y="22" width="36" height="20" uuid="1015d73d-b4d5-4b2d-a3f2-81208f881e2e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="436" y="0" width="100" height="20" uuid="329295cf-da12-4124-be22-6d085afe5997"/>
+				<reportElement x="438" y="22" width="100" height="20" uuid="329295cf-da12-4124-be22-6d085afe5997"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{dateReception}]]></textFieldExpression>
 			</textField>
@@ -82,51 +79,55 @@
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="0" y="0" width="226" height="20" forecolor="#000000" backcolor="#FF9900" uuid="3336b871-797d-4bfe-a593-441067f29251"/>
+				<reportElement mode="Opaque" x="0" y="0" width="226" height="25" forecolor="#000000" backcolor="#CCCCCC" uuid="3336b871-797d-4bfe-a593-441067f29251"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[referenceProduit]]></text>
+				<text><![CDATA[reference Produit]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="365" y="0" width="190" height="20" forecolor="#000000" backcolor="#FF9900" uuid="6139b9f7-ecb9-4fae-8729-98e0ea775d09"/>
+				<reportElement mode="Opaque" x="365" y="0" width="190" height="25" forecolor="#000000" backcolor="#CCCCCC" uuid="6139b9f7-ecb9-4fae-8729-98e0ea775d09"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[referenceMagasin]]></text>
+				<text><![CDATA[reference Magasin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="226" y="0" width="139" height="20" forecolor="#000000" backcolor="#FF9900" uuid="8152dd6c-f045-447e-8b1f-0b81f3fb0504"/>
+				<reportElement mode="Opaque" x="226" y="0" width="139" height="25" forecolor="#000000" backcolor="#CCCCCC" uuid="8152dd6c-f045-447e-8b1f-0b81f3fb0504"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[qte]]></text>
+				<text><![CDATA[Qunatité]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="27" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="false">
 				<reportElement mode="Opaque" x="0" y="0" width="226" height="20" uuid="46e58db1-ddeb-4999-8e6d-e5caf80bd4be"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
@@ -138,6 +139,7 @@
 			<textField isBlankWhenNull="false">
 				<reportElement mode="Opaque" x="365" y="0" width="190" height="20" uuid="be1d79c8-6b5c-471a-b27e-4b85c0872416"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
@@ -149,6 +151,7 @@
 			<textField isBlankWhenNull="false">
 				<reportElement mode="Opaque" x="226" y="0" width="139" height="20" uuid="88970380-86af-467a-a13c-12489c06a58d"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#666666"/>
@@ -162,11 +165,11 @@
 	<columnFooter>
 		<band height="104" splitType="Stretch">
 			<staticText>
-				<reportElement x="336" y="50" width="100" height="20" uuid="bd4b8cb2-85fb-4290-a069-3e74e2e584ad"/>
-				<textElement>
-					<font size="11" isBold="true"/>
+				<reportElement x="395" y="49" width="100" height="20" uuid="bd4b8cb2-85fb-4290-a069-3e74e2e584ad"/>
+				<textElement textAlignment="Right">
+					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Signature]]></text>
+				<text><![CDATA[Signature: ]]></text>
 			</staticText>
 		</band>
 	</columnFooter>
